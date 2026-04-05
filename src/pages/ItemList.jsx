@@ -10,7 +10,7 @@ export default function ItemList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/items')
+    axios.get('https://billing-project-backend-7917.onrender.com/api/items')
       .then((res) => {
         setItems(res.data);
         setLoading(false);

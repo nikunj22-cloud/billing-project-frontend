@@ -16,7 +16,7 @@ export default function AddItem() {
   const handleSubmit = async () => {
     if (!formData.item_name || !formData.selling_price) return alert("All fields are mandatory!");
     try {
-      await axios.post('http://localhost:5000/api/items', formData);
+      await axios.post('https://billing-project-backend-7917.onrender.com/api/items', formData);
       alert("Item Added Successfully!");
       navigate('/master/items');
     } catch (err) {

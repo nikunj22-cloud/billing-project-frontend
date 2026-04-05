@@ -10,7 +10,7 @@ export default function CustomerList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/customers')
+    axios.get('https://billing-project-backend-7917.onrender.com/api/customers')
       .then((res) => {
         setCustomers(res.data);
         setLoading(false);

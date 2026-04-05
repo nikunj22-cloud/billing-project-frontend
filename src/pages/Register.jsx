@@ -16,7 +16,7 @@ export default function Register() {
     if (!formData.username || !formData.password) return setError("Please fill all fields");
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', formData);
+      await axios.post('https://billing-project-backend-7917.onrender.com/api/auth/register', formData);
       alert("Account Created Successfully! Please Login.");
       navigate('/login'); // Register hone ke baad waapas Login pe bhej do
     } catch (err) {

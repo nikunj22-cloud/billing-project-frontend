@@ -25,7 +25,7 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://billing-project-backend-7917.onrender.com/api/auth/login",
         credentials,
       );
 

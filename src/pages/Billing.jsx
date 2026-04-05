@@ -84,7 +84,7 @@ export default function Billing() {
         customer_id: selectedCustomerId,
         items: invoiceItems
       };
-      const res = await axios.post('http://localhost:5000/api/invoices', payload);
+      const res = await axios.post('https://billing-project-backend-7917.onrender.com/api/invoices', payload);
       alert(`✅ ${res.data.message} Invoice ID: ${res.data.invoice_id}`);
       navigate('/'); 
     } catch (error) {

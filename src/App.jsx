@@ -5,7 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import axios from 'axios';
 
 // Components & Pages
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/sidebar';
 import Dashboard from './pages/Dashboard';
 import Master from './pages/Master';
 import Billing from './pages/Billing';

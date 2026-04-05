@@ -10,18 +10,19 @@ export default function Dashboard() {
   const [invoices, setInvoices] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   
- 
   const [selectedInvoice, setSelectedInvoice] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const printRef = useRef();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/invoices')
+    // 🚀 LIVE RENDER URL UPDATED HERE
+    axios.get('https://billing-project-backend-7017.onrender.com/api/invoices')
       .then((res) => setInvoices(res.data))
       .catch((err) => console.error("Error fetching invoices:", err));
   }, []);
 
- 
+  // ✅ ERROR FIXED: totalInvoices is now defined!
+  const totalInvoices = invoices.length;
   const totalRevenue = invoices.reduce((sum, inv) => sum + parseFloat(inv.net_amount), 0);
   
   const chartData = invoices.slice(0, 5).reverse().map(inv => ({
@@ -29,18 +30,16 @@ export default function Dashboard() {
     Revenue: parseFloat(inv.net_amount)
   }));
 
-
   const filteredInvoices = invoices.filter((invoice) => 
     invoice.invoice_id.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
   
   const handleOpenPrintModal = (invoice) => {
     setSelectedInvoice(invoice);
     setOpenDialog(true);
   };
 
- const handlePrint = useReactToPrint({
+  const handlePrint = useReactToPrint({
     contentRef: printRef,  
     documentTitle: `Invoice_${selectedInvoice?.invoice_id}`,
   });
@@ -48,7 +47,6 @@ export default function Dashboard() {
   return (
     <Box>
       <Typography variant="h4" fontWeight="bold" mb={3}>DASHBOARD OVERVIEW</Typography>
-
   
       <Grid container spacing={3} mb={4}>
         <Grid item xs={12} md={4}>
@@ -88,7 +86,6 @@ export default function Dashboard() {
         </Grid>
       </Grid>
 
-     
       <Card elevation={2} sx={{ mb: 4, p: 2, borderRadius: 2 }}>
         <Typography variant="h6" fontWeight="bold" mb={2}>Recent Revenue Trend</Typography>
         <Box sx={{ width: '100%', height: 300 }}>
@@ -103,8 +100,7 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </Box>
       </Card>
-
-      
+  
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h6" fontWeight="bold">Recent Invoices</Typography>
         <TextField
@@ -146,8 +142,7 @@ export default function Dashboard() {
           </TableBody>
         </Table>
       </TableContainer>
-
-      
+  
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="md" fullWidth>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2, borderBottom: '1px solid #e0e0e0' }}>
           <Typography variant="h6" fontWeight="bold">Invoice Preview</Typography>
@@ -155,7 +150,6 @@ export default function Dashboard() {
         </Box>
         
         <DialogContent sx={{ backgroundColor: '#f5f5f5', p: 4, display: 'flex', justifyContent: 'center' }}>
-       
           <Box sx={{ width: '100%', maxWidth: '800px', boxShadow: 3 }}>
              <InvoiceTemplate ref={printRef} invoice={selectedInvoice} />
           </Box>
